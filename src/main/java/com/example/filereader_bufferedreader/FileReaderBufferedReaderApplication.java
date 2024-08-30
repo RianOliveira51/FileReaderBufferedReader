@@ -14,16 +14,8 @@ public class FileReaderBufferedReaderApplication {
 
         //criando caminho do arquivo.
         String path = "c:\\temp\\in.txt";
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-            //instanciando o FileReader (Stream)
-            fr = new FileReader(path);
-
-            //instanciando o bufferedReader com o FileReader - deixa mais rapido a leitura.
-            br = new BufferedReader(fr);
-
+        //instanciando direto no bloco try-with-resources
+        try (BufferedReader br = new BufferedReader(new FileReader(path))){
             //o readLine irá ler uma linha do arquivo e se o arquivo estiver no final, irá retornar null.
             String line = br.readLine();
 
@@ -36,18 +28,6 @@ public class FileReaderBufferedReaderApplication {
 
         }catch (IOException e){
             System.out.println("Error: " + e.getMessage());
-        }
-        finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-                if (fr != null) {
-                    fr.close();
-                }
-            }catch (IOException e){
-                e.printStackTrace();
-            }
         }
     }
 
